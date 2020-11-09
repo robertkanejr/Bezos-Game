@@ -8,7 +8,6 @@ h1 {
     background-color: black;
     display:flex;
     justify-content: center;
-    font: ar
 }
 h3 {
     color: white;
@@ -29,5 +28,10 @@ h3 {
     flex-direction: column;
     justify-content: space-evenly;
     background-color: black;
-    z-index: -1;
+}
+
+.instructions {
+    display: flex;
+    justify-content: flex-start;
+    margin: 10px 0 16px 16px;
 }

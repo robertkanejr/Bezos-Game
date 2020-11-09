@@ -2,9 +2,11 @@ const canvas = document.querySelector('canvas')
 const worldImg = new Image()
 worldImg.src = `./images/bezos-background.jpg`
 
+// canvas.width = window.innerWidth;
+// canvas.height = canvas.width * worldImg.height / worldImg.width
 canvas.width = window.innerWidth;
-canvas.height = canvas.width * worldImg.height / worldImg.width
-console.log(canvas.height)
+canvas.height = 540
+// console.log(canvas.height)
 const ctx = canvas.getContext('2d')
 
 
@@ -34,11 +36,7 @@ worldImg.onload = function () {
     }
   }
 
-  let Bezos = new bot(-20, 0, 200, 175)
-
-  // BezosImg.onload = function () {
-  //   // ctx.drawImage(BezosImg, Bezos.x, Bezos.y, Bezos.w, Bezos.h)
-  // }
+  let Bezos = new bot(0, 340, 250, 175)
 
 animationId = null;
 

@@ -50,6 +50,39 @@ window.onkeydown = function (event) {
 }
 
 
+// health bar 
+
+class progressBar {
+  constructor(element, initialValue = 0) {
+    this.valueElem = elements.querySelector('.progress-bar-value');
+    this.fillElem = elements.querySelector('.progress-bar-fill');
+
+    this.setValue(initialValue);
+  }
+
+  setValue(newValue) {
+    if (newValue < 0) {
+      newValue = 0;
+    }
+    if (newValue > 100) {
+      newValue = 100;
+    }
+    this.value = newValue;
+    this.update();
+
+  }
+
+  update() {
+    const percentage = this.value + '%';
+
+    this.fillElem.style.width = percentage;
+    this.valueElem.textContent = percentage;
+  }
+
+}
+//  for some reason the code below breaks the bezos character
+// new progressBar(document.querySelector('.progress-bar')75);
+
 
 
 
@@ -60,5 +93,9 @@ function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
   ctx.drawImage(BezosImg, Bezos.x, Bezos.y, Bezos.w, Bezos.h)
+
 }
 animate()
+
+
+

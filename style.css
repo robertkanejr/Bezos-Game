@@ -21,6 +21,7 @@ h3 {
     background-color: black;
     display: flex;
     justify-content: center;
+    z-index: 1;
 }
 
 .row {
@@ -28,4 +29,5 @@ h3 {
     flex-direction: column;
     justify-content: space-evenly;
     background-color: black;
+    z-index: -1;
 }

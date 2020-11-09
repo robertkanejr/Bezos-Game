@@ -14,6 +14,23 @@ worldImg.onload = function () {
     ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
   }
 
+  const BezosImg = new Image ()
+  BezosImg.src = `./images/bezos-bot-v2.png`
+  
+  class bot {
+    constructor(x, y, w, h) {
+      this.x = x;
+      this.y = y;
+      this.w = w;
+      this.h = h;
+    }
+  }
+
+  let Bezos = new bot(-20, 0, 200, 175)
+
+  // BezosImg.onload = function () {
+  //   // ctx.drawImage(BezosImg, Bezos.x, Bezos.y, Bezos.w, Bezos.h)
+  // }
 
   
 animationId = null;
@@ -22,7 +39,6 @@ function animate() {
     animationId = requestAnimationFrame(animate)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
-  
-  
+    ctx.drawImage(BezosImg, Bezos.x, Bezos.y, Bezos.w, Bezos.h)
   }
   animate()

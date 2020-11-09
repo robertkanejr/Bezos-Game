@@ -36,7 +36,22 @@ class bot {
   }
 }
 
-  let Bezos = new bot(0, 340, 250, 175)
+let Bezos = new bot(0, 340, 250, 175)
+
+window.onkeydown = function (event) {
+  switch (event.key) {
+    case 'ArrowLeft':
+      Bezos.x -= 15
+      break;
+    case 'ArrowRight':
+      Bezos.x += 15
+      break;
+  }
+}
+
+
+
+
 
 animationId = null;
 

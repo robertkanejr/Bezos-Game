@@ -1,6 +1,10 @@
-* {
+body {
     margin: 0;
-    background-color: black;
+    background-color:red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 h1 {
@@ -8,12 +12,16 @@ h1 {
     background-color: black;
     display:flex;
     justify-content: center;
+    font-family: 'Press Start 2P', cursive;
+
 }
 h3 {
     color: white;
     background-color: black;
     display:flex;
     justify-content: center;
+    font-family: 'Press Start 2P', cursive;
+
 }
 
 .arrowKey {
@@ -27,11 +35,21 @@ h3 {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    background-color: black;
+    
 }
 
 .instructions {
     display: flex;
     justify-content: flex-start;
-    margin: 10px 0 16px 16px;
+    /* margin: 10px 0 16px 16px; */
+}
+#gameboard{
+    width: 100%;
+    background-color: blue;
+    position: relative;
+    z-index: 2;
+}
+h1, .instructions, #gameboard {
+    /* position: absolute; */
+
 }

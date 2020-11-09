@@ -1,5 +1,26 @@
+* {
+    margin: 0;
+    background-color: black;
+}
+
 h1 {
-    color: red;
+    color: white;
+    background-color: black;
+    display:flex;
+    justify-content: center;
+    font: ar
+}
+h3 {
+    color: white;
+    background-color: black;
+    display:flex;
+    justify-content: center;
+}
+
+.arrowKey {
+    background-color: black;
+    display: flex;
+    justify-content: center;
 }
 
 .row {

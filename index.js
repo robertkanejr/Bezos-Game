@@ -9,9 +9,6 @@ canvas.height = 540
 // console.log(canvas.height)
 const ctx = canvas.getContext('2d')
 
-
-
-
 let world = {
   x: 0,
   y: 0,
@@ -38,6 +35,7 @@ class bot {
 
 let Bezos = new bot(0, 340, 250, 175)
 
+// obstacles
 
 let muskImg = new Image()
 muskImg.src ="./images/musk.png"
@@ -79,12 +77,8 @@ function drawZuck(){
     mark.drawObstacles()
   }
 }
+//
 
-function drawCook(){
-  for(let tim of cook){
-    tim.drawObstacles()
-  }
-}
 window.onkeydown = function (event) {
   switch (event.key) {
     case 'ArrowLeft':

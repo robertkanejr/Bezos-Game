@@ -85,6 +85,53 @@ function drawCook(){
     tim.drawObstacles()
   }
 }
+window.onkeydown = function (event) {
+  switch (event.key) {
+    case 'ArrowLeft':
+      Bezos.x -= 15
+      break;
+    case 'ArrowRight':
+      Bezos.x += 15
+      break;
+  }
+}
+
+
+// health bar 
+
+class progressBar {
+  constructor(element, initialValue = 0) {
+    this.valueElem = elements.querySelector('.progress-bar-value');
+    this.fillElem = elements.querySelector('.progress-bar-fill');
+
+    this.setValue(initialValue);
+  }
+
+  setValue(newValue) {
+    if (newValue < 0) {
+      newValue = 0;
+    }
+    if (newValue > 100) {
+      newValue = 100;
+    }
+    this.value = newValue;
+    this.update();
+
+  }
+
+  update() {
+    const percentage = this.value + '%';
+
+    this.fillElem.style.width = percentage;
+    this.valueElem.textContent = percentage;
+  }
+
+}
+//  for some reason the code below breaks the bezos character
+// new progressBar(document.querySelector('.progress-bar')75);
+
+
+
 
 animationId = null;
 
@@ -96,3 +143,6 @@ function animate() {
   drawMusk()
 }
 animate()
+
+
+

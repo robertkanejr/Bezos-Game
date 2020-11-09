@@ -16,8 +16,18 @@ let world = {
   h: canvas.height
 }
 
+
+
 worldImg.onload = function () {
   ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
+}
+
+function drawHealthBar() {
+  ctx.fillStyle = "green"
+  ctx.fillRect(50, 100, 200, 20)
+  ctx.fillStyle = "black"
+  ctx.font = 'bold 20px serif';
+  ctx.fillText("Health!", 50, 100);
 }
 
 
@@ -38,7 +48,7 @@ let Bezos = new bot(0, 340, 250, 175)
 // obstacles
 
 let muskImg = new Image()
-muskImg.src ="./images/musk.png"
+muskImg.src = "./images/musk.png"
 
 let musk = []
 
@@ -47,33 +57,33 @@ zuckImg.src = "./images/zuck.png"
 
 
 class Obstacles {
-  constructor(x,y,w,h){
-      this.x = x;
-      this.y = y;
-      this.w = w;
-      this.h = h;
+  constructor(x, y, w, h) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
   }
   drawObstacles() {
-      this.x--
-      ctx.drawImage(muskImg, this.x, this.y, this.w, this.h)
-      ctx.drawImage(zuckImg, this.x-100, this.y+75, this.w, this.h)
+    this.x--
+    ctx.drawImage(muskImg, this.x, this.y, this.w, this.h)
+    ctx.drawImage(zuckImg, this.x - 100, this.y + 75, this.w, this.h)
   }
 
 }
 
 setInterval(function () {
-  let newObs = new Obstacles(1000,300,muskImg.width * .45,muskImg.height *.45)
+  let newObs = new Obstacles(1000, 300, muskImg.width * .45, muskImg.height * .45)
   musk.push(newObs)
 }, 10000)
 
-function drawMusk(){
-   for(let elon of musk){
-       elon.drawObstacles()
-   }
+function drawMusk() {
+  for (let elon of musk) {
+    elon.drawObstacles()
   }
+}
 
-function drawZuck(){
-  for(let mark of zuck){
+function drawZuck() {
+  for (let mark of zuck) {
     mark.drawObstacles()
   }
 }
@@ -93,36 +103,38 @@ window.onkeydown = function (event) {
 
 // health bar 
 
-class progressBar {
-  constructor(element, initialValue = 0) {
-    this.valueElem = elements.querySelector('.progress-bar-value');
-    this.fillElem = elements.querySelector('.progress-bar-fill');
+// class progressBar {
+//   constructor(element, initialValue = 0) {
+//     this.valueElem = elements.querySelector('.progress-bar-value');
+//     this.fillElem = elements.querySelector('.progress-bar-fill');
 
-    this.setValue(initialValue);
-  }
+//     this.setValue(initialValue);
+//   }
 
-  setValue(newValue) {
-    if (newValue < 0) {
-      newValue = 0;
-    }
-    if (newValue > 100) {
-      newValue = 100;
-    }
-    this.value = newValue;
-    this.update();
+//   setValue(newValue) {
+//     if (newValue < 0) {
+//       newValue = 0;
+//     }
+//     if (newValue > 100) {
+//       newValue = 100;
+//     }
+//     this.value = newValue;
+//     this.update();
 
-  }
+//   }
 
-  update() {
-    const percentage = this.value + '%';
+//   update() {
+//     const percentage = this.value + '%';
 
-    this.fillElem.style.width = percentage;
-    this.valueElem.textContent = percentage;
-  }
+//     this.fillElem.style.width = percentage;
+//     this.valueElem.textContent = percentage;
+//   }
 
-}
-//  for some reason the code below breaks the bezos character
-// new progressBar(document.querySelector('.progress-bar')75);
+// }
+// //  for some reason the code below breaks the bezos character
+// new progressBar(document.querySelector('.progress-bar'));
+
+
 
 
 
@@ -135,6 +147,7 @@ function animate() {
   ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
   ctx.drawImage(BezosImg, Bezos.x, Bezos.y, Bezos.w, Bezos.h)
   drawMusk()
+  drawHealthBar()
 }
 animate()
 

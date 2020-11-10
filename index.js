@@ -34,6 +34,10 @@ function drawHealthBar() {
 const BezosImg = new Image()
 BezosImg.src = `./images/bezos-bot-v2.png`
 
+const boxesImg = new Image()
+boxesImg.src = `./images/frame-sprite-animation.png`
+
+
 class bot {
   constructor(x, y, w, h) {
     this.x = x;
@@ -81,7 +85,7 @@ function detectCollisionBeam(newObs) {
       score++;
       console.log('collision detected with laser!', score)
       console.log(Bezos.lasers)
-      // Bezos.lasers.splice(i, 1)
+      Bezos.lasers.splice(Bezos.lasers.indexOf(beam), 1)
       allObstacles.splice(allObstacles.indexOf(newObs), 1)
       i++;
     }
@@ -107,14 +111,25 @@ class Obstacles {
     this.h = h;
   }
 
-  drawObstacles() {
-    for (let obs of allObstacles) {
-      this.x--
-      ctx.drawImage(muskImg, this.x, this.y, this.w, this.h)
-      ctx.drawImage(zuckImg, this.x - 100, this.y + 75, this.w, this.h)
-      detectCollision(obs)
-      detectCollisionBeam(obs)
-    }
+  // drawObstacles() {
+  //   for (let obs of allObstacles) {
+  //     this.x--
+  //     ctx.drawImage(muskImg, this.x, this.y, this.w, this.h)
+  //     ctx.drawImage(zuckImg, this.x - 100, this.y + 75, this.w, this.h)
+  //     detectCollision(obs)
+  //     detectCollisionBeam(obs)
+  //   }
+  // }
+}
+
+function drawObstacles() {
+  //console.log('draw', allObstacles)
+  for (let obs of allObstacles) {
+    obs.x -= 5
+    ctx.drawImage(muskImg, obs.x, obs.y, obs.w, obs.h)
+    ctx.drawImage(zuckImg, obs.x - 100, obs.y + 75, obs.w, obs.h)
+    detectCollision(obs)
+    detectCollisionBeam(obs)
   }
 }
 
@@ -122,39 +137,66 @@ class Obstacles {
 setInterval(function () {
   let newObs = new Obstacles(2000, 300, muskImg.width * .45, muskImg.height * .45)
   allObstacles.push(newObs)
-}, 10000)
+}, 1000)
 
 //Obstacle Collision Detection
 
-function detectCollision(newObs) {
-  if (Bezos.x < newObs.x + newObs.w &&
-    Bezos.x + Bezos.w > newObs.x &&
-    Bezos.y < newObs.y + newObs.h &&
-    Bezos.y + Bezos.h > newObs.y) {
+function detectCollision(obs) {
+  //console.log(obs)
+
+  if (Bezos.x < obs.x + obs.w &&
+    Bezos.x + Bezos.w > obs.x &&
+    Bezos.y < obs.y + obs.h &&
+    Bezos.y + Bezos.h > obs.y) {
     // collision detected!
-    console.log('collision!')
-    cancelAnimationFrame(animationId)
-    alert(`Score is ${score}`)
-    window.location.reload()
+    console.log('collision')
+    allObstacles.splice(allObstacles.indexOf(obs), 1)
+    lives--;
+    if (lives == 0) {
+      cancelAnimationFrame(animationId)
+      alert(`Score is ${score}`)
+    }
   }
+
+  // for(obsss of newObs){
+  //   if (Bezos.x < newObs.x + newObs.w &&
+  //   Bezos.x + Bezos.w > newObs.x &&
+  //   Bezos.y < newObs.y + newObs.h &&
+  //   Bezos.y + Bezos.h > newObs.y) {
+  //   // collision detected!
+  //   console.log('collision!')
+  //   newObs.splice(newObs.indexOf(this), 1)
+  //   lives--;
+  //   if (lives==0) {
+  //     cancelAnimationFrame(animationId)
+  //     // alert(`Score is ${score}`)
+  //   }
 }
+
+
+// window.location.reload()
+
 
 let score = 0;
 
 //Draw Each Obstacle
 
-function drawMusk() {
-  for (let elon of allObstacles) {
-    elon.drawObstacles()
-  }
-}
+// function drawMusk() {
+//   for (let elon of allObstacles) {
+//     elon.drawObstacles()
+//   }
+// }
 
-function drawZuck() {
-  for (let mark of allObstacles) {
-    mark.drawObstacles()
-  }
-}
+// function drawZuck() {
+//   for (let mark of allObstacles) {
+//     mark.drawObstacles()
+//   }
+// }
 
+let lives = 5
+function drawLives() {
+  ctx.drawImage(boxesImg, 0, 10, boxesImg.width * lives / 5, boxesImg.height, 0, 0, boxesImg.width / 5 * lives, boxesImg.height)
+}
 //Controls
 
 window.onkeydown = function (event) {
@@ -210,6 +252,8 @@ window.onkeydown = function (event) {
 
 //Animation
 
+numImg = 2;
+
 animationId = null;
 
 function animate() {
@@ -217,9 +261,12 @@ function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
   ctx.drawImage(BezosImg, Bezos.x, Bezos.y, Bezos.w, Bezos.h)
-  drawMusk()
-  drawHealthBar()
+  // ctx.drawImage(boxesImg, 0, 10, boxesImg.width / numImg, boxesImg.height, 120, 100, boxesImg.width, boxesImg.height)
+  drawObstacles()
+  drawLives()
+  // drawHealthBar()
   drawLasers()
+
 }
 animate()
 

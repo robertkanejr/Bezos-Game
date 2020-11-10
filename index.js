@@ -47,7 +47,7 @@ class bot {
     console.log('shoot')
     //Make a new beam when we shoot 
     let beam = {
-      x: this.x + (this.w / 2), y: this.y, w: 50, h: 15
+      x: this.x + (this.w / 2), y: this.y + 60, w: 50, h: 15
     }
     //Push to our laser array
     this.lasers.push(beam)
@@ -124,7 +124,7 @@ class Obstacles {
 }
 
 setInterval(function () {
-  let newObs = new Obstacles(1000, 300, muskImg.width * .45, muskImg.height * .45)
+  let newObs = new Obstacles(2000, 300, muskImg.width * .45, muskImg.height * .45)
   allObstacles.push(newObs)
 }, 10000)
 
@@ -143,7 +143,7 @@ function detectCollision(newObs) {
   }
 }
 
-let score = 1;
+let score = 0;
 
 //Draw Each Obstacle
 

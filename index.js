@@ -2,11 +2,10 @@ const canvas = document.querySelector('canvas')
 const worldImg = new Image()
 worldImg.src = `./images/bezos-background.jpg`
 
-// canvas.width = window.innerWidth;
-// canvas.height = canvas.width * worldImg.height / worldImg.width
+//Canvas
+
 canvas.width = window.innerWidth;
 canvas.height = 540
-// console.log(canvas.height)
 const ctx = canvas.getContext('2d')
 
 let world = {
@@ -16,11 +15,11 @@ let world = {
   h: canvas.height
 }
 
-
-
 worldImg.onload = function () {
   ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
 }
+
+//Health Bar
 
 function drawHealthBar() {
   ctx.fillStyle = "green"
@@ -30,6 +29,7 @@ function drawHealthBar() {
   ctx.fillText("Health!", 50, 100);
 }
 
+//Build Bot Class
 
 const BezosImg = new Image()
 BezosImg.src = `./images/bezos-bot-v2.png`
@@ -42,6 +42,7 @@ class bot {
     this.h = h;
     this.lasers = []
   }
+//Cannon
   shootCannon = () => {
     console.log('shoot')
     //Make a new beam when we shoot 
@@ -53,6 +54,11 @@ class bot {
   }
 }
 
+//Define Character
+let Bezos = new bot(0, 340, 250, 175)
+
+//Draw Lasers
+
 function drawLasers() {
   for (let beam of bot.lasers) {
     beam.y -= 10
@@ -61,9 +67,7 @@ function drawLasers() {
   }
 }
 
-let Bezos = new bot(0, 340, 250, 175)
-
-// obstacles
+//Define Obstacles
 
 let muskImg = new Image()
 muskImg.src = "./images/musk.png"
@@ -97,6 +101,7 @@ setInterval(function () {
   allObstacles.push(newObs)
 }, 10000)
 
+//Obstacle Collision Detection
 
 function detectCollision(newObs) {
   if (Bezos.x < newObs.x + newObs.w &&
@@ -113,6 +118,7 @@ function detectCollision(newObs) {
 
 let score = 1;
 
+//Draw Each Obstacle
 
 function drawMusk() {
   for (let elon of allObstacles) {
@@ -125,7 +131,8 @@ function drawZuck() {
     mark.drawObstacles()
   }
 }
-//
+
+//Controls
 
 window.onkeydown = function (event) {
   switch (event.key) {
@@ -139,43 +146,43 @@ window.onkeydown = function (event) {
 }
 
 
-// health bar 
+                      // Old Health Bar (if needed)
 
-// class progressBar {
-//   constructor(element, initialValue = 0) {
-//     this.valueElem = elements.querySelector('.progress-bar-value');
-//     this.fillElem = elements.querySelector('.progress-bar-fill');
+                      // class progressBar {
+                      //   constructor(element, initialValue = 0) {
+                      //     this.valueElem = elements.querySelector('.progress-bar-value');
+                      //     this.fillElem = elements.querySelector('.progress-bar-fill');
 
-//     this.setValue(initialValue);
-//   }
+                      //     this.setValue(initialValue);
+                      //   }
 
-//   setValue(newValue) {
-//     if (newValue < 0) {
-//       newValue = 0;
-//     }
-//     if (newValue > 100) {
-//       newValue = 100;
-//     }
-//     this.value = newValue;
-//     this.update();
+                      //   setValue(newValue) {
+                      //     if (newValue < 0) {
+                      //       newValue = 0;
+                      //     }
+                      //     if (newValue > 100) {
+                      //       newValue = 100;
+                      //     }
+                      //     this.value = newValue;
+                      //     this.update();
 
-//   }
+                      //   }
 
-//   update() {
-//     const percentage = this.value + '%';
+                      //   update() {
+                      //     const percentage = this.value + '%';
 
-//     this.fillElem.style.width = percentage;
-//     this.valueElem.textContent = percentage;
-//   }
+                      //     this.fillElem.style.width = percentage;
+                      //     this.valueElem.textContent = percentage;
+                      //   }
 
-// }
-// //  for some reason the code below breaks the bezos character
-// new progressBar(document.querySelector('.progress-bar'));
-
-
+                      // }
+                      // //  for some reason the code below breaks the bezos character
+                      // new progressBar(document.querySelector('.progress-bar'));
 
 
 
+
+//Animation
 
 animationId = null;
 

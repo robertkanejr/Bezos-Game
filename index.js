@@ -68,7 +68,7 @@ let Bezos = new bot(0, 340, 250, 175)
 let muskImg = new Image()
 muskImg.src = "./images/musk.png"
 
-let musk = []
+let allObstacles = []
 
 let zuckImg = new Image()
 zuckImg.src = "./images/zuck.png"
@@ -82,26 +82,46 @@ class Obstacles {
     this.h = h;
   }
   drawObstacles() {
-    this.x--
-    ctx.drawImage(muskImg, this.x, this.y, this.w, this.h)
-    ctx.drawImage(zuckImg, this.x - 100, this.y + 75, this.w, this.h)
+    for (let obs of allObstacles) {
+      this.x--
+      ctx.drawImage(muskImg, this.x, this.y, this.w, this.h)
+      ctx.drawImage(zuckImg, this.x - 100, this.y + 75, this.w, this.h)
+      detectCollision(obs)
+    }
   }
 
 }
 
 setInterval(function () {
   let newObs = new Obstacles(1000, 300, muskImg.width * .45, muskImg.height * .45)
-  musk.push(newObs)
+  allObstacles.push(newObs)
 }, 10000)
 
+
+function detectCollision(newObs) {
+  if (Bezos.x < newObs.x + newObs.w &&
+    Bezos.x + Bezos.w > newObs.x &&
+    Bezos.y < newObs.y + newObs.h &&
+    Bezos.y + Bezos.h > newObs.y) {
+    // collision detected!
+    console.log('collision!')
+    cancelAnimationFrame(animationId)
+    alert(`Score is ${score}`)
+    window.location.reload()
+  }
+}
+
+let score = 1;
+
+
 function drawMusk() {
-  for (let elon of musk) {
+  for (let elon of allObstacles) {
     elon.drawObstacles()
   }
 }
 
 function drawZuck() {
-  for (let mark of zuck) {
+  for (let mark of allObstacles) {
     mark.drawObstacles()
   }
 }

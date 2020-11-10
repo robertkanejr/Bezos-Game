@@ -80,7 +80,7 @@ function detectCollisionBeam(newObs) {
       // collision detected!
       console.log('collision detected with laser!', i)
       console.log(Bezos.lasers)
-      // bot.lasers.splice(i, 1)
+      // Bezos.lasers.splice(i, 1)
       allObstacles.splice(allObstacles.indexOf(newObs), 1)
       i++;
     }
@@ -105,15 +105,22 @@ class Obstacles {
     this.w = w;
     this.h = h;
   }
+  
   drawObstacles() {
     for (let obs of allObstacles) {
       this.x--
       ctx.drawImage(muskImg, this.x, this.y, this.w, this.h)
       ctx.drawImage(zuckImg, this.x - 100, this.y + 75, this.w, this.h)
       detectCollision(obs)
+      detectCollisionBeam(obs) //Detect if obs hit a bullet
+      //Removes when passed car/road 
+      // if (newObs.y > canvas.height) {
+      //   score += 1000
+      //   speed += 1
+      //   allObstacles.shift()
+      // }
     }
   }
-
 }
 
 setInterval(function () {
@@ -161,6 +168,9 @@ window.onkeydown = function (event) {
       break;
     case 'ArrowRight':
       Bezos.x += 15
+      break;
+    case ' ':
+      Bezos.shootCannon()
       break;
   }
 }
@@ -213,6 +223,7 @@ function animate() {
   ctx.drawImage(BezosImg, Bezos.x, Bezos.y, Bezos.w, Bezos.h)
   drawMusk()
   drawHealthBar()
+  drawLasers()
 }
 animate()
 

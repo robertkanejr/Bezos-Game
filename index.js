@@ -23,10 +23,10 @@ worldImg.onload = function () {
 
 function drawHealthBar() {
   ctx.fillStyle = "green"
-  ctx.fillRect(50, 100, 200, 20)
+  ctx.fillRect(120, 100, 200, 20)
   ctx.fillStyle = "white"
   ctx.font = 'bold 15px Orbitron';
-  ctx.fillText("Battery Life :", 50, 115);
+  ctx.fillText("Battery Life :", 10, 115);
 }
 
 //Build Bot Class

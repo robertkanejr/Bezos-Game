@@ -42,7 +42,7 @@ class bot {
     this.h = h;
     this.lasers = []
   }
-//Cannon
+  //Cannon
   shootCannon = () => {
     console.log('shoot')
     //Make a new beam when we shoot 
@@ -166,38 +166,38 @@ window.onkeydown = function (event) {
 }
 
 
-                      // Old Health Bar (if needed)
+// Old Health Bar (if needed)
 
-                      // class progressBar {
-                      //   constructor(element, initialValue = 0) {
-                      //     this.valueElem = elements.querySelector('.progress-bar-value');
-                      //     this.fillElem = elements.querySelector('.progress-bar-fill');
+// class progressBar {
+//   constructor(element, initialValue = 0) {
+//     this.valueElem = elements.querySelector('.progress-bar-value');
+//     this.fillElem = elements.querySelector('.progress-bar-fill');
 
-                      //     this.setValue(initialValue);
-                      //   }
+//     this.setValue(initialValue);
+//   }
 
-                      //   setValue(newValue) {
-                      //     if (newValue < 0) {
-                      //       newValue = 0;
-                      //     }
-                      //     if (newValue > 100) {
-                      //       newValue = 100;
-                      //     }
-                      //     this.value = newValue;
-                      //     this.update();
+//   setValue(newValue) {
+//     if (newValue < 0) {
+//       newValue = 0;
+//     }
+//     if (newValue > 100) {
+//       newValue = 100;
+//     }
+//     this.value = newValue;
+//     this.update();
 
-                      //   }
+//   }
 
-                      //   update() {
-                      //     const percentage = this.value + '%';
+//   update() {
+//     const percentage = this.value + '%';
 
-                      //     this.fillElem.style.width = percentage;
-                      //     this.valueElem.textContent = percentage;
-                      //   }
+//     this.fillElem.style.width = percentage;
+//     this.valueElem.textContent = percentage;
+//   }
 
-                      // }
-                      // //  for some reason the code below breaks the bezos character
-                      // new progressBar(document.querySelector('.progress-bar'));
+// }
+// //  for some reason the code below breaks the bezos character
+// new progressBar(document.querySelector('.progress-bar'));
 
 
 

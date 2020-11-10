@@ -40,6 +40,24 @@ class bot {
     this.y = y;
     this.w = w;
     this.h = h;
+    this.lasers = []
+  }
+  shootCannon = () => {
+    console.log('shoot')
+    //Make a new beam when we shoot 
+    let beam = {
+      x: this.x + (this.w / 2), y: this.y, w: 10, h: 20
+    }
+    //Push to our laser array
+    this.lasers.push(beam)
+  }
+}
+
+function drawLasers() {
+  for (let beam of bot.lasers) {
+    beam.y -= 10
+    ctx.fillStyle = 'silver'
+    ctx.fillRect(beam.x, beam.y, beam.w, beam.h)
   }
 }
 

@@ -24,9 +24,9 @@ worldImg.onload = function () {
 function drawHealthBar() {
   ctx.fillStyle = "green"
   ctx.fillRect(50, 100, 200, 20)
-  ctx.fillStyle = "black"
-  ctx.font = 'bold 20px serif';
-  ctx.fillText("Health!", 50, 100);
+  ctx.fillStyle = "white"
+  ctx.font = 'bold 15px Orbitron';
+  ctx.fillText("Battery Life :", 50, 115);
 }
 
 //Build Bot Class
@@ -47,7 +47,7 @@ class bot {
     console.log('shoot')
     //Make a new beam when we shoot 
     let beam = {
-      x: this.x + (this.w / 2), y: this.y, w: 10, h: 20
+      x: this.x + (this.w / 2), y: this.y, w: 50, h: 15
     }
     //Push to our laser array
     this.lasers.push(beam)
@@ -62,8 +62,8 @@ let Bezos = new bot(0, 340, 250, 175)
 
 function drawLasers() {
   for (let beam of Bezos.lasers) {
-    beam.y -= 10
-    ctx.fillStyle = 'silver'
+    beam.x += 10
+    ctx.fillStyle = 'red'
     ctx.fillRect(beam.x, beam.y, beam.w, beam.h)
   }
 }
@@ -80,7 +80,7 @@ function detectCollisionBeam(newObs) {
       // collision detected!
       console.log('collision detected with laser!', i)
       console.log(Bezos.lasers)
-      // bot.lasers.splice(i, 1)
+      // Bezos.lasers.splice(i, 1)
       allObstacles.splice(allObstacles.indexOf(newObs), 1)
       i++;
     }
@@ -105,15 +105,22 @@ class Obstacles {
     this.w = w;
     this.h = h;
   }
+
   drawObstacles() {
     for (let obs of allObstacles) {
       this.x--
       ctx.drawImage(muskImg, this.x, this.y, this.w, this.h)
       ctx.drawImage(zuckImg, this.x - 100, this.y + 75, this.w, this.h)
       detectCollision(obs)
+      detectCollisionBeam(obs) //Detect if obs hit a bullet
+      //Removes when passed car/road 
+      // if (newObs.y > canvas.height) {
+      //   score += 1000
+      //   speed += 1
+      //   allObstacles.shift()
+      // }
     }
   }
-
 }
 
 setInterval(function () {
@@ -161,6 +168,9 @@ window.onkeydown = function (event) {
       break;
     case 'ArrowRight':
       Bezos.x += 15
+      break;
+    case ' ':
+      Bezos.shootCannon()
       break;
   }
 }
@@ -213,6 +223,7 @@ function animate() {
   ctx.drawImage(BezosImg, Bezos.x, Bezos.y, Bezos.w, Bezos.h)
   drawMusk()
   drawHealthBar()
+  drawLasers()
 }
 animate()
 

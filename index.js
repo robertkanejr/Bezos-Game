@@ -57,13 +57,33 @@ class bot {
 //Define Character
 let Bezos = new bot(0, 340, 250, 175)
 
+
 //Draw Lasers
 
 function drawLasers() {
-  for (let beam of bot.lasers) {
+  for (let beam of Bezos.lasers) {
     beam.y -= 10
     ctx.fillStyle = 'silver'
     ctx.fillRect(beam.x, beam.y, beam.w, beam.h)
+  }
+}
+
+//Laser Collision Detection
+
+function detectCollisionBeam(newObs) {
+  let i = 0;
+  for (let beam of Bezos.lasers) {
+    if (beam.x < newObs.x + newObs.w &&
+      beam.x + beam.w > newObs.x &&
+      beam.y < newObs.y + newObs.h &&
+      beam.y + beam.h > newObs.y) {
+      // collision detected!
+      console.log('collision detected with laser!', i)
+      console.log(Bezos.lasers)
+      // bot.lasers.splice(i, 1)
+      allObstacles.splice(allObstacles.indexOf(newObs), 1)
+      i++;
+    }
   }
 }
 

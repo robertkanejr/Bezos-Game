@@ -78,7 +78,8 @@ function detectCollisionBeam(newObs) {
       beam.y < newObs.y + newObs.h &&
       beam.y + beam.h > newObs.y) {
       // collision detected!
-      console.log('collision detected with laser!', i)
+      score++;
+      console.log('collision detected with laser!', score)
       console.log(Bezos.lasers)
       // Bezos.lasers.splice(i, 1)
       allObstacles.splice(allObstacles.indexOf(newObs), 1)
@@ -112,16 +113,11 @@ class Obstacles {
       ctx.drawImage(muskImg, this.x, this.y, this.w, this.h)
       ctx.drawImage(zuckImg, this.x - 100, this.y + 75, this.w, this.h)
       detectCollision(obs)
-      detectCollisionBeam(obs) //Detect if obs hit a bullet
-      //Removes when passed car/road 
-      // if (newObs.y > canvas.height) {
-      //   score += 1000
-      //   speed += 1
-      //   allObstacles.shift()
-      // }
+      detectCollisionBeam(obs)
     }
   }
 }
+
 
 setInterval(function () {
   let newObs = new Obstacles(2000, 300, muskImg.width * .45, muskImg.height * .45)

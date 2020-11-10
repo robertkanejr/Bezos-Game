@@ -47,7 +47,7 @@ class bot {
     console.log('shoot')
     //Make a new beam when we shoot 
     let beam = {
-      x: this.x + (this.w / 2), y: this.y, w: 10, h: 20
+      x: this.x + (this.w / 2), y: this.y, w: 50, h: 15
     }
     //Push to our laser array
     this.lasers.push(beam)
@@ -62,8 +62,8 @@ let Bezos = new bot(0, 340, 250, 175)
 
 function drawLasers() {
   for (let beam of Bezos.lasers) {
-    beam.y -= 10
-    ctx.fillStyle = 'silver'
+    beam.x += 10
+    ctx.fillStyle = 'red'
     ctx.fillRect(beam.x, beam.y, beam.w, beam.h)
   }
 }

@@ -134,7 +134,7 @@ function detectCollision(newObs) {
     // collision detected!
     console.log('collision!')
     cancelAnimationFrame(animationId)
-    alert(`Score is ${score}`)
+    alert(`You vaporized ${score} Marks and Elons`)
     window.location.reload()
   }
 }

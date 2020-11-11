@@ -19,6 +19,10 @@ worldImg.onload = function () {
   ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
 }
 
+// BezosImg.onload = function () {
+//   ctx.drawImage(BezosImg, 0, 0, 902, 440, 395, 340, 250, 175)
+// }
+
 //Health Bar
 
 // function drawKillCount() {
@@ -32,13 +36,17 @@ worldImg.onload = function () {
 // Define Images
 
 const BezosImg = new Image()
-BezosImg.src = `./images/bezos-bot-v2.png`
+BezosImg.src = `./images/full-sprite-sheet-v3.png`
 
 const boxesImg = new Image()
 boxesImg.src = `./images/frame-sprite-animation.png`
 
 const pBoxImg = new Image()
 pBoxImg.src = `./images/prime-box.png`
+
+// BezosImg.onload = function () {
+//   ctx.drawImage(BezosImg, 0, 0, 902, 440, 395, 340, 250, 175)
+// }
 
 //Build Bot Class
 
@@ -54,7 +62,7 @@ class bot {
   //Cannon
   shootCannon = () => {
     console.log('shoot')
-   //If Bezos facing right, shoot right. If Bezos facing left, shoot left.
+    //If Bezos facing right, shoot right. If Bezos facing left, shoot left.
 
     let pBoxImg = {
       x: this.x + (this.w / 2), y: this.y + 60, w: 60, h: 50
@@ -65,7 +73,11 @@ class bot {
 }
 
 //Define Character
-let Bezos = new bot(395, 340, 250, 175)
+// let Bezos = new bot(395, 340, 250, 175)
+
+let sheetX = 0;
+let sheetY = 0;
+let locateX = 395;
 
 
 //Draw Lasers
@@ -219,10 +231,20 @@ function drawLives() {
 window.onkeydown = function (event) {
   switch (event.key) {
     case 'ArrowLeft':
-      Bezos.x -= 15
+      if (sheetX === 902 * 24) {
+        sheetX === 0
+      } else {
+        sheetX += 902
+      }
+      locateX -= 15
       break;
     case 'ArrowRight':
-      Bezos.x += 15
+      if (sheetX === 902 * 24) {
+        sheetX === 0
+      } else {
+        sheetX += 902
+      }
+      locateX += 15
       break;
     case ' ':
       Bezos.shootCannon()
@@ -231,45 +253,12 @@ window.onkeydown = function (event) {
 }
 
 
-// Old Health Bar (if needed)
-
-// class progressBar {
-//   constructor(element, initialValue = 0) {
-//     this.valueElem = elements.querySelector('.progress-bar-value');
-//     this.fillElem = elements.querySelector('.progress-bar-fill');
-
-//     this.setValue(initialValue);
-//   }
-
-//   setValue(newValue) {
-//     if (newValue < 0) {
-//       newValue = 0;
-//     }
-//     if (newValue > 100) {
-//       newValue = 100;
-//     }
-//     this.value = newValue;
-//     this.update();
-
-//   }
-
-//   update() {
-//     const percentage = this.value + '%';
-
-//     this.fillElem.style.width = percentage;
-//     this.valueElem.textContent = percentage;
-//   }
-
-// }
-// //  for some reason the code below breaks the bezos character
-// new progressBar(document.querySelector('.progress-bar'));
-
-
-
-
-
 
 //Animation
+
+// let sheetX = 0;
+// let sheetY = 0;
+// let locateX = 395;
 
 numImg = 2;
 
@@ -279,7 +268,8 @@ function animate() {
   animationId = requestAnimationFrame(animate)
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
-  ctx.drawImage(BezosImg, Bezos.x, Bezos.y, Bezos.w, Bezos.h)
+  // ctx.drawImage(BezosImg, Bezos.x, Bezos.y, Bezos.w, Bezos.h)
+  ctx.drawImage(BezosImg, sheetX, sheetY, 902, 470, locateX, 340, 250, 175)
   // ctx.drawImage(boxesImg, 0, 10, boxesImg.width / numImg, boxesImg.height, 120, 100, boxesImg.width, boxesImg.height)
   drawObstacles()
   drawLives()

@@ -36,7 +36,7 @@ worldImg.onload = function () {
 // Define Images
 
 const BezosImg = new Image()
-BezosImg.src = `./images/full-sprite-sheet-v3.png`
+BezosImg.src = `./images/full-sprite-sheet-v4.png`
 
 const boxesImg = new Image()
 boxesImg.src = `./images/frame-sprite-animation.png`

@@ -165,7 +165,7 @@ function detectCollision(obs) {
     lives--;
     if (lives == 0) {
       cancelAnimationFrame(animationId)
-      alert(`You loss! You lost all of your wealth but vaporized ${score} Marks & Elons`)
+      alert(`You lost! You lost all of your wealth but vaporized ${score} Marks & Elons`)
 
     }
   }

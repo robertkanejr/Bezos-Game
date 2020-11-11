@@ -275,13 +275,6 @@ window.onkeydown = function (event) {
 
 
 //Animation
-
-
-
-
-
-
-
 let sheetX = 0;
 let sheetY = 0;
 let locateX = 395;

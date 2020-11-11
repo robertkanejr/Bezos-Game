@@ -292,7 +292,7 @@ let state = {
   dying: { right: { num: 35, y: 1140 }, left: { num: 35, y: null } }
 }
 
-let action = 'dying'
+let action = 'walking'
 setInterval(function () {
   sheetX += 902
   sheetY = state[action][direction].y

@@ -204,10 +204,14 @@ let score = 0;
 //   }
 // }
 
+
+//Define Lives
+
 let lives = 5
 function drawLives() {
   ctx.drawImage(boxesImg, 0, 10, boxesImg.width * lives / 5, boxesImg.height, 0, 0, boxesImg.width / 5 * lives, boxesImg.height)
 }
+
 //Controls
 
 window.onkeydown = function (event) {

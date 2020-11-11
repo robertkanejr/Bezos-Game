@@ -73,11 +73,7 @@ class bot {
 }
 
 //Define Character
-// let Bezos = new bot(395, 340, 250, 175)
-
-let sheetX = 0;
-let sheetY = 0;
-let locateX = 395;
+let Bezos = new bot(395, 340, 250, 175)
 
 
 //Draw Lasers
@@ -173,16 +169,16 @@ function drawObstacles() {
 }
 
 
-setInterval(function () {
-  let direction = Math.random() > 0.5
-  let newObs = null;
-  if (direction == true) {
-    newObs = new Obstacles(2000, 300, muskImg.width * .45, muskImg.height * .45, -5)
-  } else {
-    newObs = new Obstacles(-2000, 300, muskImg.width * .45, muskImg.height * .45, 5)
-  }
-  allObstacles.push(newObs)
-}, 1000)
+// setInterval(function () {
+//   let direction = Math.random() > 0.5
+//   let newObs = null;
+//   if (direction == true) {
+//     newObs = new Obstacles(2000, 300, muskImg.width * .45, muskImg.height * .45, -5)
+//   } else {
+//     newObs = new Obstacles(-2000, 300, muskImg.width * .45, muskImg.height * .45, 5)
+//   }
+//   allObstacles.push(newObs)
+// }, 1000)
 
 //Obstacle Collision Detection
 
@@ -202,21 +198,22 @@ function detectCollision(obs) {
 
     }
   }
-
-  // for(obsss of newObs){
-  //   if (Bezos.x < newObs.x + newObs.w &&
-  //   Bezos.x + Bezos.w > newObs.x &&
-  //   Bezos.y < newObs.y + newObs.h &&
-  //   Bezos.y + Bezos.h > newObs.y) {
-  //   // collision detected!
-  //   console.log('collision!')
-  //   newObs.splice(newObs.indexOf(this), 1)
-  //   lives--;
-  //   if (lives==0) {
-  //     cancelAnimationFrame(animationId)
-  //     // alert(`Score is ${score}`)
-  //   }
 }
+
+// for(obsss of newObs){
+//   if (Bezos.x < newObs.x + newObs.w &&
+//   Bezos.x + Bezos.w > newObs.x &&
+//   Bezos.y < newObs.y + newObs.h &&
+//   Bezos.y + Bezos.h > newObs.y) {
+//   // collision detected!
+//   console.log('collision!')
+//   newObs.splice(newObs.indexOf(this), 1)
+//   lives--;
+//   if (lives==0) {
+//     cancelAnimationFrame(animationId)
+//     // alert(`Score is ${score}`)
+//   }
+//}
 
 
 // window.location.reload()
@@ -247,24 +244,27 @@ function drawLives() {
 }
 
 //Controls
+let direction = 'right'
 
 window.onkeydown = function (event) {
   switch (event.key) {
     case 'ArrowLeft':
-      if (sheetX === 902 * 24) {
-        sheetX === 0
-      } else {
-        sheetX += 902
-      }
-      locateX -= 15
+      // if (sheetX === 902 * 24) {
+      //   sheetX === 0
+      // } else {
+      //   sheetX += 902
+      // }
+      direction = 'left'
+      locateX -= 10
       break;
     case 'ArrowRight':
-      if (sheetX === 902 * 24) {
-        sheetX === 0
-      } else {
-        sheetX += 902
-      }
-      locateX += 15
+      // if (sheetX === 902 * 24) {
+      //   sheetX === 0
+      // } else {
+      //   sheetX += 902
+      // }
+      direction = 'right'
+      locateX += 10
       break;
     case ' ':
       Bezos.shootCannon()
@@ -276,9 +276,38 @@ window.onkeydown = function (event) {
 
 //Animation
 
-// let sheetX = 0;
-// let sheetY = 0;
-// let locateX = 395;
+
+
+
+
+
+
+let sheetX = 0;
+let sheetY = 0;
+let locateX = 395;
+
+let state = {
+  walking: { right: { num: 24, y: 0 }, left: { num: 24, y: null } },
+  shooting: { right: { num: 10, y: 540 }, left: { num: 10, y: null } },
+  dying: { right: { num: 35, y: 1140 }, left: { num: 35, y: null } }
+}
+
+let action = 'dying'
+setInterval(function () {
+  sheetX += 902
+  sheetY = state[action][direction].y
+  if (sheetX >= 902 * state[action][direction].num) {
+    sheetX = 0
+  }
+}, 50)
+
+function drawBezos() {
+
+  ctx.drawImage(BezosImg, sheetX, sheetY, 902, 470, locateX, 340, 250, 175)
+}
+
+
+
 
 numImg = 2;
 
@@ -289,7 +318,7 @@ function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
   // ctx.drawImage(BezosImg, Bezos.x, Bezos.y, Bezos.w, Bezos.h)
-  ctx.drawImage(BezosImg, sheetX, sheetY, 902, 470, locateX, 340, 250, 175)
+  drawBezos()
   // ctx.drawImage(boxesImg, 0, 10, boxesImg.width / numImg, boxesImg.height, 120, 100, boxesImg.width, boxesImg.height)
   drawObstacles()
   drawLives()
@@ -298,6 +327,3 @@ function animate() {
 
 }
 animate()
-
-
-

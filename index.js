@@ -21,12 +21,12 @@ worldImg.onload = function () {
 
 //Health Bar
 
-// function drawHealthBar() {
+// function drawKillCount() {
 //   ctx.fillStyle = "green"
 //   ctx.fillRect(120, 100, 200, 20)
 //   ctx.fillStyle = "white"
 //   ctx.font = 'bold 15px Orbitron';
-//   ctx.fillText("Battery Life :", 10, 115);
+//   ctx.fillText("Battery Life ${score} :", 10, 115);
 // }
 
 // Define Images
@@ -165,7 +165,8 @@ function detectCollision(obs) {
     lives--;
     if (lives == 0) {
       cancelAnimationFrame(animationId)
-      alert(`Score is ${score}`)
+      alert(`You loss! You lost all of your wealth but vaporized ${score} Marks & Elons`)
+
     }
   }
 
@@ -261,6 +262,8 @@ window.onkeydown = function (event) {
 
 
 
+
+
 //Animation
 
 numImg = 2;
@@ -275,7 +278,7 @@ function animate() {
   // ctx.drawImage(boxesImg, 0, 10, boxesImg.width / numImg, boxesImg.height, 120, 100, boxesImg.width, boxesImg.height)
   drawObstacles()
   drawLives()
-  // drawHealthBar()
+  // drawKillCount()
   drawLasers()
 
 }

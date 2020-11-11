@@ -29,7 +29,7 @@ worldImg.onload = function () {
 //   ctx.fillText("Battery Life :", 10, 115);
 // }
 
-//Build Bot Class
+// Define Images
 
 const BezosImg = new Image()
 BezosImg.src = `./images/bezos-bot-v2.png`
@@ -37,6 +37,10 @@ BezosImg.src = `./images/bezos-bot-v2.png`
 const boxesImg = new Image()
 boxesImg.src = `./images/frame-sprite-animation.png`
 
+const pBoxImg = new Image()
+pBoxImg.src = `./images/prime-box.png`
+
+//Build Bot Class
 
 class bot {
   constructor(x, y, w, h) {
@@ -46,29 +50,30 @@ class bot {
     this.h = h;
     this.lasers = []
   }
+
   //Cannon
   shootCannon = () => {
     console.log('shoot')
-    //Make a new beam when we shoot 
-    let beam = {
-      x: this.x + (this.w / 2), y: this.y + 60, w: 50, h: 15
+    //Make a new pBox when we shoot 
+    let pBoxImg = {
+      x: this.x + (this.w / 2), y: this.y + 60, w: 60, h: 50
     }
     //Push to our laser array
-    this.lasers.push(beam)
+    this.lasers.push(pBoxImg)
   }
 }
 
 //Define Character
-let Bezos = new bot(0, 340, 250, 175)
+let Bezos = new bot(395, 340, 250, 175)
 
 
 //Draw Lasers
 
 function drawLasers() {
-  for (let beam of Bezos.lasers) {
-    beam.x += 10
-    ctx.fillStyle = 'red'
-    ctx.fillRect(beam.x, beam.y, beam.w, beam.h)
+  for (let blaster of Bezos.lasers) {
+    blaster.x += 10
+    // ctx.fillStyle = 'pattern'
+    ctx.drawImage(pBoxImg, blaster.x, blaster.y, blaster.w, blaster.h)
   }
 }
 
@@ -104,11 +109,12 @@ zuckImg.src = "./images/zuck.png"
 
 
 class Obstacles {
-  constructor(x, y, w, h) {
+  constructor(x, y, w, h, movement) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
+    this.movement = movement;
   }
 
   // drawObstacles() {
@@ -125,7 +131,7 @@ class Obstacles {
 function drawObstacles() {
   //console.log('draw', allObstacles)
   for (let obs of allObstacles) {
-    obs.x -= 5
+    obs.x += obs.movement
     ctx.drawImage(muskImg, obs.x, obs.y, obs.w, obs.h)
     ctx.drawImage(zuckImg, obs.x - 100, obs.y + 75, obs.w, obs.h)
     detectCollision(obs)
@@ -135,7 +141,13 @@ function drawObstacles() {
 
 
 setInterval(function () {
-  let newObs = new Obstacles(2000, 300, muskImg.width * .45, muskImg.height * .45)
+  let direction = Math.random() > 0.5
+  let newObs = null;
+  if (direction == true) {
+    newObs = new Obstacles(2000, 300, muskImg.width * .45, muskImg.height * .45, -5)
+  } else {
+    newObs = new Obstacles(-2000, 300, muskImg.width * .45, muskImg.height * .45, 5)
+  }
   allObstacles.push(newObs)
 }, 1000)
 
@@ -143,7 +155,6 @@ setInterval(function () {
 
 function detectCollision(obs) {
   //console.log(obs)
-
   if (Bezos.x < obs.x + obs.w &&
     Bezos.x + Bezos.w > obs.x &&
     Bezos.y < obs.y + obs.h &&

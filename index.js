@@ -54,7 +54,8 @@ class bot {
   //Cannon
   shootCannon = () => {
     console.log('shoot')
-    //Make a new pBox when we shoot 
+   //If Bezos facing right, shoot right. If Bezos facing left, shoot left.
+
     let pBoxImg = {
       x: this.x + (this.w / 2), y: this.y + 60, w: 60, h: 50
     }

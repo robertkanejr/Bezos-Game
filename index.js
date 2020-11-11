@@ -90,6 +90,26 @@ function drawLasers() {
   }
 }
 
+//SFX
+
+var bezosBlast = document.getElementById('sound')
+function playAudio() {
+  bezosBlast.play();
+}
+
+document.body.onkeyup = function (e) {
+  if (e.keyCode == 32) {
+    bezosBlast.play();
+  }
+}
+
+// window.addEventListener("DOMContentLoaded", event => {
+//   const audio = document.getElementById("bg_audio");
+//   audio.volume = 0.6;
+//   audio.play();
+// });
+
+
 //Laser Collision Detection
 
 function detectCollisionBeam(newObs) {

@@ -38,8 +38,8 @@ worldImg.onload = function () {
 const BezosImg = new Image()
 BezosImg.src = `./images/full-sprite-sheet-v4.png`
 
-const boxesImg = new Image()
-boxesImg.src = `./images/frame-sprite-animation.png`
+const wealthImg = new Image()
+wealthImg.src = `./images/frame-sprite-animation.png`
 
 const pBoxImg = new Image()
 pBoxImg.src = `./images/prime-box.png`
@@ -103,17 +103,21 @@ function drawLasers() {
 
 //SFX
 
-var bezosBlast = document.getElementById('sound')
-function playAudio() {
-  bezosBlast.play();
-}
+// var bezosBlast = document.getElementById('sound')
+// function playAudio() {
+//   bezosBlast.play();
+// }
 
-document.body.onkeyup = function (e) {
-  if (e.keyCode == 32) {
-    bezosBlast.play();
-  }
-}
+// document.body.onkeyup = function (e) {
+//   if (e.keyCode == 32) {
+//     bezosBlast.play();
+//     state = 'shooting';
 
+//   }
+//   setTimeout(function () { state = 'walking'; }, 5000);
+// }
+
+// Background Music
 // window.addEventListener("DOMContentLoaded", event => {
 //   const audio = document.getElementById("bg_audio");
 //   audio.volume = 0.6;
@@ -215,7 +219,7 @@ function detectCollision(obs) {
   }
 }
 
-// for(obsss of newObs){
+// for(obs of newObs){
 //   if (Bezos.x < newObs.x + newObs.w &&
 //   Bezos.x + Bezos.w > newObs.x &&
 //   Bezos.y < newObs.y + newObs.h &&
@@ -255,7 +259,7 @@ let score = 0;
 
 let lives = 5
 function drawLives() {
-  ctx.drawImage(boxesImg, 0, 10, boxesImg.width * lives / 5, boxesImg.height, 0, 0, boxesImg.width / 5 * lives, boxesImg.height)
+  ctx.drawImage(wealthImg, 0, 10, wealthImg.width * lives / 5, wealthImg.height, 0, 0, wealthImg.width / 5 * lives, wealthImg.height)
 }
 
 //Controls
@@ -320,6 +324,20 @@ function drawBezos() {
   ctx.drawImage(BezosImg, sheetX, sheetY, 902, 470, locateX, 340, 250, 175)
 }
 
+var bezosBlast = document.getElementById('sound')
+function playAudio() {
+  bezosBlast.play();
+}
+
+document.body.onkeyup = function (e) {
+  if (e.keyCode == 32) {
+    bezosBlast.play();
+    // state = 'shooting';
+
+  }
+  // setTimeout(function () { state = 'walking'; }, 5000);
+}
+
 
 
 
@@ -333,7 +351,7 @@ function animate() {
   ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
   // ctx.drawImage(BezosImg, Bezos.x, Bezos.y, Bezos.w, Bezos.h)
   drawBezos()
-  // ctx.drawImage(boxesImg, 0, 10, boxesImg.width / numImg, boxesImg.height, 120, 100, boxesImg.width, boxesImg.height)
+  // ctx.drawImage(wealthImg, 0, 10, wealthImg.width / numImg, wealthImg.height, 120, 100, wealthImg.width, wealthImg.height)
   drawObstacles()
   drawLives()
   // drawKillCount()

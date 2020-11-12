@@ -295,7 +295,6 @@ setInterval(function () {
 }, 50)
 
 function drawBezos() {
-
   ctx.drawImage(BezosImg, sheetX, sheetY, 902, 470, locateX, 340, 250, 175)
 }
 

@@ -87,16 +87,19 @@ function drawLasers() {
 
 //SFX
 
-var bezosBlast = document.getElementById('sound')
-function playAudio() {
-  bezosBlast.play();
-}
+// var bezosBlast = document.getElementById('sound')
+// function playAudio() {
+//   bezosBlast.play();
+// }
 
-document.body.onkeyup = function (e) {
-  if (e.keyCode == 32) {
-    bezosBlast.play();
-  }
-}
+// document.body.onkeyup = function (e) {
+//   if (e.keyCode == 32) {
+//     bezosBlast.play();
+//     state = 'shooting';
+
+//   }
+//   setTimeout(function () { state = 'walking'; }, 5000);
+// }
 
 // Background Music
 // window.addEventListener("DOMContentLoaded", event => {
@@ -296,6 +299,20 @@ setInterval(function () {
 
 function drawBezos() {
   ctx.drawImage(BezosImg, sheetX, sheetY, 902, 470, locateX, 340, 250, 175)
+}
+
+var bezosBlast = document.getElementById('sound')
+function playAudio() {
+  bezosBlast.play();
+}
+
+document.body.onkeyup = function (e) {
+  if (e.keyCode == 32) {
+    bezosBlast.play();
+    state = 'shooting';
+
+  }
+  setTimeout(function () { state = 'walking'; }, 5000);
 }
 
 

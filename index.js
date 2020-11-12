@@ -56,8 +56,24 @@ class bot {
     this.y = y;
     this.w = w;
     this.h = h;
-    this.lasers = []
   }
+}
+
+let lasers = [];
+
+class Lasers {
+  constructor(img, x, y, w, h) {
+    this.img = img
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+  }
+  drawLasers = () => {
+    ctx.drawImage(this.img, this.x++, this.y, this.w, this.h);
+    this.x += 5
+  }
+}
 
   //Cannon
   shootCannon = () => {
@@ -71,26 +87,26 @@ class bot {
     this.lasers.push(pBoxImg)
   }
 
-}
-
 //Define Character
 let Bezos = new bot(395, 340, 250, 175)
 
 
 //Draw Lasers
 
-function drawLasers() {
-  for (let blaster of Bezos.lasers) {
-    if (state.rightFace) {
 
-      blaster.x += 10
-    } else if (state.leftFace) {
-      blaster.x -= 10
-    }
-    // ctx.fillStyle = 'pattern'
-    ctx.drawImage(pBoxImg, blaster.x, blaster.y, blaster.w, blaster.h)
-  }
-}
+
+// function drawLasers() {
+//   for (let blaster of Bezos.lasers) {
+//     if (state.rightFace) {
+
+//       blaster.x += 10
+//     } else if (state.leftFace) {
+//       blaster.x -= 10
+//     }
+//     // ctx.fillStyle = 'pattern'
+//     ctx.drawImage(pBoxImg, blaster.x, blaster.y, blaster.w, blaster.h)
+//   }
+// }
 
 // trying to dray laser left
 // function drawLasers() {
@@ -290,10 +306,11 @@ window.onkeydown = function (event) {
       state.leftFace = false
       break;
     case ' ':
-      Bezos.shootCannon()
+      lasers.push(new Lasers(pBoxImg, Bezos.x + Bezos.w / 2, Bezos.y + Bezos.h / 2, 15, 15));
+      // piupiu.play()
       break;
   }
-}
+};
 
 
 

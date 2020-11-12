@@ -280,9 +280,9 @@ let sheetY = 0;
 let locateX = 395;
 
 let state = {
-  walking: { right: { num: 24, y: 0 }, left: { num: 24, y: null } },
-  shooting: { right: { num: 10, y: 540 }, left: { num: 10, y: null } },
-  dying: { right: { num: 35, y: 1140 }, left: { num: 35, y: null } }
+  walking: { right: { num: 24, y: 0 }, left: { num: 24, y: 1740 } },
+  shooting: { right: { num: 10, y: 540 }, left: { num: 10, y: 2240 } },
+  dying: { right: { num: 35, y: 1140 }, left: { num: 35, y: 2840 } }
 }
 
 let action = 'walking'

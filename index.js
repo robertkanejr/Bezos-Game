@@ -23,23 +23,23 @@ worldImg.onload = function () {
 //   ctx.drawImage(BezosImg, 0, 0, 902, 440, 395, 340, 250, 175)
 // }
 
-//Health Bar
+                            //Health Bar
 
-// function drawKillCount() {
-//   ctx.fillStyle = "green"
-//   ctx.fillRect(120, 100, 200, 20)
-//   ctx.fillStyle = "white"
-//   ctx.font = 'bold 15px Orbitron';
-//   ctx.fillText("Battery Life ${score} :", 10, 115);
-// }
+                            // function drawKillCount() {
+                            //   ctx.fillStyle = "green"
+                            //   ctx.fillRect(120, 100, 200, 20)
+                            //   ctx.fillStyle = "white"
+                            //   ctx.font = 'bold 15px Orbitron';
+                            //   ctx.fillText("Battery Life ${score} :", 10, 115);
+                            // }
 
 // Define Images
 
 const BezosImg = new Image()
 BezosImg.src = `./images/full-sprite-sheet-v4.png`
 
-const boxesImg = new Image()
-boxesImg.src = `./images/frame-sprite-animation.png`
+const wealthImg = new Image()
+wealthImg.src = `./images/frame-sprite-animation.png`
 
 const pBoxImg = new Image()
 pBoxImg.src = `./images/prime-box.png`
@@ -65,7 +65,7 @@ class bot {
     //If Bezos facing right, shoot right. If Bezos facing left, shoot left.
 
     let pBoxImg = {
-      x: this.x + (this.w / 2), y: this.y + 60, w: 60, h: 50
+      x: this.x + (this.w / 2), y: this.y + 40, w: 60, h: 50
     }
     //Push to our laser array
     this.lasers.push(pBoxImg)
@@ -81,7 +81,6 @@ let Bezos = new bot(395, 340, 250, 175)
 function drawLasers() {
   for (let blaster of Bezos.lasers) {
     blaster.x += 10
-    // ctx.fillStyle = 'pattern'
     ctx.drawImage(pBoxImg, blaster.x, blaster.y, blaster.w, blaster.h)
   }
 }
@@ -102,6 +101,7 @@ function drawLasers() {
 //   setTimeout(function () { state = 'walking'; }, 5000);
 // }
 
+// Background Music
 // window.addEventListener("DOMContentLoaded", event => {
 //   const audio = document.getElementById("bg_audio");
 //   audio.volume = 0.6;
@@ -203,7 +203,7 @@ function detectCollision(obs) {
   }
 }
 
-// for(obsss of newObs){
+// for(obs of newObs){
 //   if (Bezos.x < newObs.x + newObs.w &&
 //   Bezos.x + Bezos.w > newObs.x &&
 //   Bezos.y < newObs.y + newObs.h &&
@@ -243,7 +243,7 @@ let score = 0;
 
 let lives = 5
 function drawLives() {
-  ctx.drawImage(boxesImg, 0, 10, boxesImg.width * lives / 5, boxesImg.height, 0, 0, boxesImg.width / 5 * lives, boxesImg.height)
+  ctx.drawImage(wealthImg, 0, 10, wealthImg.width * lives / 5, wealthImg.height, 0, 0, wealthImg.width / 5 * lives, wealthImg.height)
 }
 
 //Controls
@@ -329,7 +329,7 @@ function animate() {
   ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
   // ctx.drawImage(BezosImg, Bezos.x, Bezos.y, Bezos.w, Bezos.h)
   drawBezos()
-  // ctx.drawImage(boxesImg, 0, 10, boxesImg.width / numImg, boxesImg.height, 120, 100, boxesImg.width, boxesImg.height)
+  // ctx.drawImage(wealthImg, 0, 10, wealthImg.width / numImg, wealthImg.height, 120, 100, wealthImg.width, wealthImg.height)
   drawObstacles()
   drawLives()
   // drawKillCount()

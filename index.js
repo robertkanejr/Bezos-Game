@@ -23,15 +23,15 @@ worldImg.onload = function () {
 //   ctx.drawImage(BezosImg, 0, 0, 902, 440, 395, 340, 250, 175)
 // }
 
-//Health Bar
+                            //Health Bar
 
-// function drawKillCount() {
-//   ctx.fillStyle = "green"
-//   ctx.fillRect(120, 100, 200, 20)
-//   ctx.fillStyle = "white"
-//   ctx.font = 'bold 15px Orbitron';
-//   ctx.fillText("Battery Life ${score} :", 10, 115);
-// }
+                            // function drawKillCount() {
+                            //   ctx.fillStyle = "green"
+                            //   ctx.fillRect(120, 100, 200, 20)
+                            //   ctx.fillStyle = "white"
+                            //   ctx.font = 'bold 15px Orbitron';
+                            //   ctx.fillText("Battery Life ${score} :", 10, 115);
+                            // }
 
 // Define Images
 
@@ -98,6 +98,7 @@ document.body.onkeyup = function (e) {
   }
 }
 
+// Background Music
 // window.addEventListener("DOMContentLoaded", event => {
 //   const audio = document.getElementById("bg_audio");
 //   audio.volume = 0.6;
@@ -199,7 +200,7 @@ function detectCollision(obs) {
   }
 }
 
-// for(obsss of newObs){
+// for(obs of newObs){
 //   if (Bezos.x < newObs.x + newObs.w &&
 //   Bezos.x + Bezos.w > newObs.x &&
 //   Bezos.y < newObs.y + newObs.h &&

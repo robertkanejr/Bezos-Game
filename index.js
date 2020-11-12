@@ -23,15 +23,15 @@ worldImg.onload = function () {
 //   ctx.drawImage(BezosImg, 0, 0, 902, 440, 395, 340, 250, 175)
 // }
 
-                            //Health Bar
+//Health Bar
 
-                            // function drawKillCount() {
-                            //   ctx.fillStyle = "green"
-                            //   ctx.fillRect(120, 100, 200, 20)
-                            //   ctx.fillStyle = "white"
-                            //   ctx.font = 'bold 15px Orbitron';
-                            //   ctx.fillText("Battery Life ${score} :", 10, 115);
-                            // }
+// function drawKillCount() {
+//   ctx.fillStyle = "green"
+//   ctx.fillRect(120, 100, 200, 20)
+//   ctx.fillStyle = "white"
+//   ctx.font = 'bold 15px Orbitron';
+//   ctx.fillText("Battery Life ${score} :", 10, 115);
+// }
 
 // Define Images
 
@@ -70,6 +70,7 @@ class bot {
     //Push to our laser array
     this.lasers.push(pBoxImg)
   }
+
 }
 
 //Define Character
@@ -80,10 +81,25 @@ let Bezos = new bot(395, 340, 250, 175)
 
 function drawLasers() {
   for (let blaster of Bezos.lasers) {
-    blaster.x += 10
+    if (state.rightFace) {
+
+      blaster.x += 10
+    } else if (state.leftFace) {
+      blaster.x -= 10
+    }
+    // ctx.fillStyle = 'pattern'
     ctx.drawImage(pBoxImg, blaster.x, blaster.y, blaster.w, blaster.h)
   }
 }
+
+// trying to dray laser left
+// function drawLasers() {
+//   for (let blaster of Bezos.lasers) {
+//     blaster.x -= 10
+//     // ctx.fillStyle = 'pattern'
+//     ctx.drawImage(pBoxImg, blaster.x, blaster.y, blaster.w, blaster.h)
+//   }
+// }
 
 //SFX
 
@@ -259,6 +275,8 @@ window.onkeydown = function (event) {
       // }
       direction = 'left'
       locateX -= 10
+      state.rightFace = false
+      state.leftFace = true
       break;
     case 'ArrowRight':
       // if (sheetX === 902 * 24) {
@@ -268,6 +286,8 @@ window.onkeydown = function (event) {
       // }
       direction = 'right'
       locateX += 10
+      state.rightFace = true
+      state.leftFace = false
       break;
     case ' ':
       Bezos.shootCannon()
@@ -285,7 +305,9 @@ let locateX = 395;
 let state = {
   walking: { right: { num: 24, y: 0 }, left: { num: 24, y: 1740 } },
   shooting: { right: { num: 10, y: 540 }, left: { num: 10, y: 2240 } },
-  dying: { right: { num: 35, y: 1140 }, left: { num: 35, y: 2840 } }
+  dying: { right: { num: 35, y: 1140 }, left: { num: 35, y: 2840 } },
+  rightFace: true,
+  leftFace: false,
 }
 
 let action = 'walking'
@@ -309,10 +331,10 @@ function playAudio() {
 document.body.onkeyup = function (e) {
   if (e.keyCode == 32) {
     bezosBlast.play();
-    state = 'shooting';
+    // state = 'shooting';
 
   }
-  setTimeout(function () { state = 'walking'; }, 5000);
+  // setTimeout(function () { state = 'walking'; }, 5000);
 }
 
 

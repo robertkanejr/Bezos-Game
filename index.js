@@ -19,10 +19,6 @@ worldImg.onload = function () {
   ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
 }
 
-// BezosImg.onload = function () {
-//   ctx.drawImage(BezosImg, 0, 0, 902, 440, 395, 340, 250, 175)
-// }
-
 //Health Bar
 
 // function drawKillCount() {
@@ -43,10 +39,6 @@ wealthImg.src = `./images/frame-sprite-animation.png`
 
 const pBoxImg = new Image()
 pBoxImg.src = `./images/prime-box.png`
-
-// BezosImg.onload = function () {
-//   ctx.drawImage(BezosImg, 0, 0, 902, 440, 395, 340, 250, 175)
-// }
 
 //Build Bot Class
 
@@ -71,21 +63,10 @@ class LasersR {
   }
   drawLasersRight = () => {
     ctx.drawImage(this.img, this.x++, this.y, this.w, this.h);
-    // if(state.rightFace){
-      
-    //   this.x += 5
-    // }
-    // else{
-  
-      this.x += 5
-    // }
-    // if(state.leftFace){
-      
-    //     this.x -= 5
-    //   }
-    
-}
-
+    console.log(this)
+    // ctx.fillRect(this.x, this.y, 20, 20)
+    this.x += 5
+  }
 }
 
 class LasersL {
@@ -96,44 +77,17 @@ class LasersL {
     this.w = w;
     this.h = h;
   }
+
   drawLasersLeft = () => {
     ctx.drawImage(this.img, this.x--, this.y, this.w, this.h);
-    // if(state.rightFace){
-      
-    //   this.x += 5
-    // }
-    // else{
-  
-      this.x -= 5
-    // }
-    // if(state.leftFace){
-      
-    //     this.x -= 5
-    //   }
-    
+    this.x -= 5
+  }
 }
-
-}
-
-  //Cannon
-  // shootCannon = () => {
-  //   console.log('shoot')
-  //   //If Bezos facing right, shoot right. If Bezos facing left, shoot left.
-
-  //   let pBoxImg = {
-  //     x: this.x + (this.w / 2), y: this.y + 40, w: 60, h: 50
-  //   }
-  //   //Push to our laser array
-  //   this.lasers.push(pBoxImg)
-  // }
 
 //Define Character
 let Bezos = new bot(395, 340, 250, 175)
 
-
 //Draw Lasers
-
-
 
 // function drawLasers() {
 //   for (let blaster of Bezos.lasers) {
@@ -159,20 +113,6 @@ let Bezos = new bot(395, 340, 250, 175)
 
 //SFX
 
-// var bezosBlast = document.getElementById('sound')
-// function playAudio() {
-//   bezosBlast.play();
-// }
-
-// document.body.onkeyup = function (e) {
-//   if (e.keyCode == 32) {
-//     bezosBlast.play();
-//     state = 'shooting';
-
-//   }
-//   setTimeout(function () { state = 'walking'; }, 5000);
-// }
-
 // Background Music
 // window.addEventListener("DOMContentLoaded", event => {
 //   const audio = document.getElementById("bg_audio");
@@ -186,38 +126,36 @@ let Bezos = new bot(395, 340, 250, 175)
 function detectCollisionBeam(obs) {
   let i = 0;
   for (let beam of lasersRight) {
-    console.log(beam)
+    console.log(beam.x, obs.x)
+    if (beam.x < obs.x + obs.w &&
+      beam.x + beam.w > obs.x &&
+      beam.y < obs.y + obs.h &&
+      beam.y + beam.h > obs.y) {
+      // collision detected!
+
+      score++;
+      console.log('collision detected with laser!', score)
+      // debugger;
+      lasersRight.splice(lasersRight.indexOf(beam), 1)
+      allObstacles.splice(allObstacles.indexOf(obs), 1)
+      i++;
+    }
+  }
+  for (let beam of lasersLeft) {
     if (beam.x < obs.x + obs.w &&
       beam.x + beam.w > obs.x &&
       beam.y < obs.y + obs.h &&
       beam.y + beam.h > obs.y) {
       // collision detected!
       score++;
-      console.log('collision detected with laser!', score)
-      // console.log(lasers)
-      lasersRight.splice(lasersRight.indexOf(beam), 1)
+      // console.log('collision detected with laser!', score)
+      // console.log(lasersLeft)
+      lasersLeft.splice(lasersLeft.indexOf(beam), 1)
       allObstacles.splice(allObstacles.indexOf(obs), 1)
       i++;
     }
   }
-  // for (let beam of lasersLeft) {
-  //   if (beam.x < newObs.x + newObs.w &&
-  //     beam.x + beam.w > newObs.x &&
-  //     beam.y < newObs.y + newObs.h &&
-  //     beam.y + beam.h > newObs.y) {
-  //     // collision detected!
-  //     score++;
-  //     // console.log('collision detected with laser!', score)
-  //     // console.log(lasersLeft)
-  //     lasersLeft.splice(lasersLeft.indexOf(beam), 1)
-  //     allObstacles.splice(allObstacles.indexOf(newObs), 1)
-  //     i++;
-  //   }
-// }
 }
-
-  
-
 
 //Define Obstacles
 
@@ -254,21 +192,21 @@ function drawObstacles() {
   //console.log('draw', allObstacles)
   for (let obs of allObstacles) {
     obs.x += obs.movement
+
     ctx.drawImage(muskImg, obs.x, obs.y, obs.w, obs.h)
-    ctx.drawImage(zuckImg, obs.x - 100, obs.y + 75, obs.w, obs.h)
+    //ctx.drawImage(zuckImg, obs.x - 250, obs.y + 75, obs.w, obs.h)
     detectCollision(obs)
     detectCollisionBeam(obs)
   }
 }
 
-
 setInterval(function () {
   let direction = Math.random() > 0.5
   let newObs = null;
   if (direction == true) {
-    newObs = new Obstacles(2000, 300, muskImg.width * .45, muskImg.height * .45, -5)
+    newObs = new Obstacles(2000, 400, muskImg.width * .45, muskImg.height * .45, -5)
   } else {
-    newObs = new Obstacles(-2000, 300, muskImg.width * .45, muskImg.height * .45, 5)
+    newObs = new Obstacles(-2000, 400, muskImg.width * .45, muskImg.height * .45, 5)
   }
   allObstacles.push(newObs)
 }, 1000)
@@ -277,8 +215,8 @@ setInterval(function () {
 
 function detectCollision(obs) {
   //console.log(obs)
-  if (Bezos.x < obs.x + obs.w &&
-    Bezos.x + Bezos.w > obs.x &&
+  if (locateX < obs.x + obs.w &&
+    locateX + Bezos.w > obs.x &&
     Bezos.y < obs.y + obs.h &&
     Bezos.y + Bezos.h > obs.y) {
     // collision detected!
@@ -286,31 +224,20 @@ function detectCollision(obs) {
     allObstacles.splice(allObstacles.indexOf(obs), 1)
     lives--;
     if (lives == 0) {
-      cancelAnimationFrame(animationId)
-      alert(`Game Over! You lost all of your wealth but vaporized ${score} rival CEOs.`)
+      action = 'dying';
+      clearInterval(bezosInterval)
+      animateBezos(300)
+      allObstacles = [];
+      setTimeout(function () {
+        cancelAnimationFrame(animationId)
+        alert(`Game Over! You lost all of your wealth but vaporized ${score} rival CEOs.`)
+      }, 3000);
 
     }
   }
 }
 
-// for(obs of newObs){
-//   if (Bezos.x < newObs.x + newObs.w &&
-//   Bezos.x + Bezos.w > newObs.x &&
-//   Bezos.y < newObs.y + newObs.h &&
-//   Bezos.y + Bezos.h > newObs.y) {
-//   // collision detected!
-//   console.log('collision!')
-//   newObs.splice(newObs.indexOf(this), 1)
-//   lives--;
-//   if (lives==0) {
-//     cancelAnimationFrame(animationId)
-//     // alert(`Score is ${score}`)
-//   }
-//}
-
-
 // window.location.reload()
-
 
 let score = 0;
 
@@ -365,18 +292,14 @@ window.onkeydown = function (event) {
       break;
     case ' ':
       console.log(Bezos.x)
-      if (state.rightFace){
-      lasersRight.push(new LasersR(pBoxImg, locateX + Bezos.w / 2, Bezos.y + Bezos.h / 2, 50, 60));
-      } else if (state.leftFace){
+      if (state.rightFace) {
+        lasersRight.push(new LasersR(pBoxImg, locateX + Bezos.w / 2, Bezos.y + Bezos.h / 2, 50, 60));
+      } else if (state.leftFace) {
         lasersLeft.push(new LasersL(pBoxImg, locateX + Bezos.w / 2, Bezos.y + Bezos.h / 2, 50, 60));
       }
-      
-      // piupiu.play()
       break;
   }
 };
-
-
 
 //Animation
 let sheetX = 0;
@@ -392,14 +315,19 @@ let state = {
 }
 
 let action = 'walking'
-setInterval(function () {
-  sheetX += 902
-  sheetY = state[action][direction].y
-  if (sheetX >= 902 * state[action][direction].num) {
-    sheetX = 0
-  }
-}, 50)
+let bezosInterval = null;
+function animateBezos(speed) {
+  console.log(speed)
+  bezosInterval = setInterval(function () {
 
+    sheetX += 902
+    sheetY = state[action][direction].y
+    if (sheetX >= 902 * state[action][direction].num) {
+      sheetX = 0
+    }
+  }, speed)
+}
+animateBezos(50);
 function drawBezos() {
   ctx.drawImage(BezosImg, sheetX, sheetY, 902, 470, locateX, 340, 250, 175)
 }
@@ -412,14 +340,10 @@ function playAudio() {
 document.body.onkeyup = function (e) {
   if (e.keyCode == 32) {
     bezosBlast.play();
-    // state = 'shooting';
-
+    action = 'shooting';
+    setTimeout(function () { action = 'walking'; }, 500);
   }
-  // setTimeout(function () { state = 'walking'; }, 5000);
 }
-
-
-
 
 numImg = 2;
 
@@ -429,16 +353,13 @@ function animate() {
   animationId = requestAnimationFrame(animate)
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
-  // ctx.drawImage(BezosImg, Bezos.x, Bezos.y, Bezos.w, Bezos.h)
   drawBezos()
-  // ctx.drawImage(wealthImg, 0, 10, wealthImg.width / numImg, wealthImg.height, 120, 100, wealthImg.width, wealthImg.height)
   drawObstacles()
   drawLives()
-  // drawKillCount()
-  for(laserr of lasersRight){
+  for (laserr of lasersRight) {
     laserr.drawLasersRight()
   }
-  for (laserl of lasersLeft){
+  for (laserl of lasersLeft) {
     laserl.drawLasersLeft()
   }
 

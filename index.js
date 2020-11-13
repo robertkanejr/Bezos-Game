@@ -19,16 +19,6 @@ worldImg.onload = function () {
   ctx.drawImage(worldImg, world.x, world.y, world.w, world.h)
 }
 
-//Health Bar
-
-// function drawKillCount() {
-//   ctx.fillStyle = "green"
-//   ctx.fillRect(120, 100, 200, 20)
-//   ctx.fillStyle = "white"
-//   ctx.font = 'bold 15px Orbitron';
-//   ctx.fillText("Battery Life ${score} :", 10, 115);
-// }
-
 // Define Images
 
 const BezosImg = new Image()
@@ -64,7 +54,6 @@ class LasersR {
   drawLasersRight = () => {
     ctx.drawImage(this.img, this.x++, this.y, this.w, this.h);
     console.log(this)
-    // ctx.fillRect(this.x, this.y, 20, 20)
     this.x += 5
   }
 }
@@ -87,30 +76,6 @@ class LasersL {
 //Define Character
 let Bezos = new bot(395, 340, 250, 175)
 
-//Draw Lasers
-
-// function drawLasers() {
-//   for (let blaster of Bezos.lasers) {
-//     if (state.rightFace) {
-
-//       blaster.x += 10
-//     } else if (state.leftFace) {
-//       blaster.x -= 10
-//     }
-//     // ctx.fillStyle = 'pattern'
-//     ctx.drawImage(pBoxImg, blaster.x, blaster.y, blaster.w, blaster.h)
-//   }
-// }
-
-// trying to dray laser left
-// function drawLasers() {
-//   for (let blaster of Bezos.lasers) {
-//     blaster.x -= 10
-//     // ctx.fillStyle = 'pattern'
-//     ctx.drawImage(pBoxImg, blaster.x, blaster.y, blaster.w, blaster.h)
-//   }
-// }
-
 //SFX
 
 // Background Music
@@ -119,7 +84,6 @@ let Bezos = new bot(395, 340, 250, 175)
 //   audio.volume = 0.6;
 //   audio.play();
 // });
-
 
 //Laser Collision Detection
 
@@ -135,7 +99,6 @@ function detectCollisionBeam(obs) {
 
       score++;
       console.log('collision detected with laser!', score)
-      // debugger;
       lasersRight.splice(lasersRight.indexOf(beam), 1)
       allObstacles.splice(allObstacles.indexOf(obs), 1)
       i++;
@@ -148,8 +111,7 @@ function detectCollisionBeam(obs) {
       beam.y + beam.h > obs.y) {
       // collision detected!
       score++;
-      // console.log('collision detected with laser!', score)
-      // console.log(lasersLeft)
+
       lasersLeft.splice(lasersLeft.indexOf(beam), 1)
       allObstacles.splice(allObstacles.indexOf(obs), 1)
       i++;
@@ -176,25 +138,13 @@ class Obstacles {
     this.h = h;
     this.movement = movement;
   }
-
-  // drawObstacles() {
-  //   for (let obs of allObstacles) {
-  //     this.x--
-  //     ctx.drawImage(muskImg, this.x, this.y, this.w, this.h)
-  //     ctx.drawImage(zuckImg, this.x - 100, this.y + 75, this.w, this.h)
-  //     detectCollision(obs)
-  //     detectCollisionBeam(obs)
-  //   }
-  // }
 }
 
 function drawObstacles() {
-  //console.log('draw', allObstacles)
   for (let obs of allObstacles) {
     obs.x += obs.movement
 
     ctx.drawImage(muskImg, obs.x, obs.y, obs.w, obs.h)
-    //ctx.drawImage(zuckImg, obs.x - 250, obs.y + 75, obs.w, obs.h)
     detectCollision(obs)
     detectCollisionBeam(obs)
   }
@@ -214,7 +164,6 @@ setInterval(function () {
 //Obstacle Collision Detection
 
 function detectCollision(obs) {
-  //console.log(obs)
   if (locateX < obs.x + obs.w &&
     locateX + Bezos.w > obs.x &&
     Bezos.y < obs.y + obs.h &&
@@ -237,24 +186,7 @@ function detectCollision(obs) {
   }
 }
 
-// window.location.reload()
-
 let score = 0;
-
-//Draw Each Obstacle
-
-// function drawMusk() {
-//   for (let elon of allObstacles) {
-//     elon.drawObstacles()
-//   }
-// }
-
-// function drawZuck() {
-//   for (let mark of allObstacles) {
-//     mark.drawObstacles()
-//   }
-// }
-
 
 //Define Lives
 
@@ -269,22 +201,12 @@ let direction = 'right'
 window.onkeydown = function (event) {
   switch (event.key) {
     case 'ArrowLeft':
-      // if (sheetX === 902 * 24) {
-      //   sheetX === 0
-      // } else {
-      //   sheetX += 902
-      // }
       direction = 'left'
       locateX -= 10
       state.rightFace = false
       state.leftFace = true
       break;
     case 'ArrowRight':
-      // if (sheetX === 902 * 24) {
-      //   sheetX === 0
-      // } else {
-      //   sheetX += 902
-      // }
       direction = 'right'
       locateX += 10
       state.rightFace = true

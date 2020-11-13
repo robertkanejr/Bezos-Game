@@ -59,9 +59,9 @@ class bot {
   }
 }
 
-let lasers = [];
-
-class Lasers {
+let lasersRight = [];
+let lasersLeft = []
+class LasersR {
   constructor(img, x, y, w, h) {
     this.img = img
     this.x = x;
@@ -69,19 +69,50 @@ class Lasers {
     this.w = w;
     this.h = h;
   }
-  drawLasers = () => {
-    ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
-    if(state.rightFace){
+  drawLasersRight = () => {
+    ctx.drawImage(this.img, this.x++, this.y, this.w, this.h);
+    // if(state.rightFace){
       
-      this.x += 5
-    }
+    //   this.x += 5
+    // }
     // else{
   
-    //   this.x -= 5
+      this.x += 5
     // }
+    // if(state.leftFace){
+      
+    //     this.x -= 5
+    //   }
     
-    
+}
+
+}
+
+class LasersL {
+  constructor(img, x, y, w, h) {
+    this.img = img
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
   }
+  drawLasersLeft = () => {
+    ctx.drawImage(this.img, this.x--, this.y, this.w, this.h);
+    // if(state.rightFace){
+      
+    //   this.x += 5
+    // }
+    // else{
+  
+      this.x -= 5
+    // }
+    // if(state.leftFace){
+      
+    //     this.x -= 5
+    //   }
+    
+}
+
 }
 
   //Cannon
@@ -152,23 +183,41 @@ let Bezos = new bot(395, 340, 250, 175)
 
 //Laser Collision Detection
 
-function detectCollisionBeam(newObs) {
+function detectCollisionBeam(obs) {
   let i = 0;
-  for (let beam of Bezos.lasers) {
-    if (beam.x < newObs.x + newObs.w &&
-      beam.x + beam.w > newObs.x &&
-      beam.y < newObs.y + newObs.h &&
-      beam.y + beam.h > newObs.y) {
+  for (let beam of lasersRight) {
+    console.log(beam)
+    if (beam.x < obs.x + obs.w &&
+      beam.x + beam.w > obs.x &&
+      beam.y < obs.y + obs.h &&
+      beam.y + beam.h > obs.y) {
       // collision detected!
       score++;
       console.log('collision detected with laser!', score)
-      console.log(Bezos.lasers)
-      Bezos.lasers.splice(Bezos.lasers.indexOf(beam), 1)
-      allObstacles.splice(allObstacles.indexOf(newObs), 1)
+      // console.log(lasers)
+      lasersRight.splice(lasersRight.indexOf(beam), 1)
+      allObstacles.splice(allObstacles.indexOf(obs), 1)
       i++;
     }
   }
+  // for (let beam of lasersLeft) {
+  //   if (beam.x < newObs.x + newObs.w &&
+  //     beam.x + beam.w > newObs.x &&
+  //     beam.y < newObs.y + newObs.h &&
+  //     beam.y + beam.h > newObs.y) {
+  //     // collision detected!
+  //     score++;
+  //     // console.log('collision detected with laser!', score)
+  //     // console.log(lasersLeft)
+  //     lasersLeft.splice(lasersLeft.indexOf(beam), 1)
+  //     allObstacles.splice(allObstacles.indexOf(newObs), 1)
+  //     i++;
+  //   }
+// }
 }
+
+  
+
 
 //Define Obstacles
 
@@ -213,16 +262,16 @@ function drawObstacles() {
 }
 
 
-// setInterval(function () {
-//   let direction = Math.random() > 0.5
-//   let newObs = null;
-//   if (direction == true) {
-//     newObs = new Obstacles(2000, 300, muskImg.width * .45, muskImg.height * .45, -5)
-//   } else {
-//     newObs = new Obstacles(-2000, 300, muskImg.width * .45, muskImg.height * .45, 5)
-//   }
-//   allObstacles.push(newObs)
-// }, 1000)
+setInterval(function () {
+  let direction = Math.random() > 0.5
+  let newObs = null;
+  if (direction == true) {
+    newObs = new Obstacles(2000, 300, muskImg.width * .45, muskImg.height * .45, -5)
+  } else {
+    newObs = new Obstacles(-2000, 300, muskImg.width * .45, muskImg.height * .45, 5)
+  }
+  allObstacles.push(newObs)
+}, 1000)
 
 //Obstacle Collision Detection
 
@@ -316,7 +365,12 @@ window.onkeydown = function (event) {
       break;
     case ' ':
       console.log(Bezos.x)
-      lasers.push(new Lasers(pBoxImg, locateX + Bezos.w / 2, Bezos.y + Bezos.h / 2, 50, 60));
+      if (state.rightFace){
+      lasersRight.push(new LasersR(pBoxImg, locateX + Bezos.w / 2, Bezos.y + Bezos.h / 2, 50, 60));
+      } else if (state.leftFace){
+        lasersLeft.push(new LasersL(pBoxImg, locateX + Bezos.w / 2, Bezos.y + Bezos.h / 2, 50, 60));
+      }
+      
       // piupiu.play()
       break;
   }
@@ -381,8 +435,11 @@ function animate() {
   drawObstacles()
   drawLives()
   // drawKillCount()
-  for(laser of lasers){
-    laser.drawLasers()
+  for(laserr of lasersRight){
+    laserr.drawLasersRight()
+  }
+  for (laserl of lasersLeft){
+    laserl.drawLasersLeft()
   }
 
 

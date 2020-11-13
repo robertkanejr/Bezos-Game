@@ -70,22 +70,31 @@ class Lasers {
     this.h = h;
   }
   drawLasers = () => {
-    ctx.drawImage(this.img, this.x++, this.y, this.w, this.h);
-    this.x += 5
+    ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
+    if(state.rightFace){
+      
+      this.x += 5
+    }
+    // else{
+  
+    //   this.x -= 5
+    // }
+    
+    
   }
 }
 
   //Cannon
-  shootCannon = () => {
-    console.log('shoot')
-    //If Bezos facing right, shoot right. If Bezos facing left, shoot left.
+  // shootCannon = () => {
+  //   console.log('shoot')
+  //   //If Bezos facing right, shoot right. If Bezos facing left, shoot left.
 
-    let pBoxImg = {
-      x: this.x + (this.w / 2), y: this.y + 40, w: 60, h: 50
-    }
-    //Push to our laser array
-    this.lasers.push(pBoxImg)
-  }
+  //   let pBoxImg = {
+  //     x: this.x + (this.w / 2), y: this.y + 40, w: 60, h: 50
+  //   }
+  //   //Push to our laser array
+  //   this.lasers.push(pBoxImg)
+  // }
 
 //Define Character
 let Bezos = new bot(395, 340, 250, 175)
@@ -306,7 +315,8 @@ window.onkeydown = function (event) {
       state.leftFace = false
       break;
     case ' ':
-      lasers.push(new Lasers(pBoxImg, Bezos.x + Bezos.w / 2, Bezos.y + Bezos.h / 2, 15, 15));
+      console.log(Bezos.x)
+      lasers.push(new Lasers(pBoxImg, locateX + Bezos.w / 2, Bezos.y + Bezos.h / 2, 50, 60));
       // piupiu.play()
       break;
   }
@@ -371,7 +381,10 @@ function animate() {
   drawObstacles()
   drawLives()
   // drawKillCount()
-  drawLasers()
+  for(laser of lasers){
+    laser.drawLasers()
+  }
+
 
 }
 animate()

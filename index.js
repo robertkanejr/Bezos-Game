@@ -52,9 +52,9 @@ class LasersR {
     this.h = h;
   }
   drawLasersRight = () => {
-    ctx.drawImage(this.img, this.x++, this.y, this.w, this.h);
+    ctx.drawImage(this.img, this.x++, this.y - 50, this.w, this.h);
     console.log(this)
-    this.x += 5
+    this.x += 10
   }
 }
 
@@ -68,8 +68,8 @@ class LasersL {
   }
 
   drawLasersLeft = () => {
-    ctx.drawImage(this.img, this.x--, this.y, this.w, this.h);
-    this.x -= 5
+    ctx.drawImage(this.img, this.x--, this.y - 50, this.w, this.h);
+    this.x -= 10
   }
 }
 
@@ -96,7 +96,6 @@ function detectCollisionBeam(obs) {
       beam.y < obs.y + obs.h &&
       beam.y + beam.h > obs.y) {
       // collision detected!
-
       score++;
       console.log('collision detected with laser!', score)
       lasersRight.splice(lasersRight.indexOf(beam), 1)
@@ -111,10 +110,12 @@ function detectCollisionBeam(obs) {
       beam.y + beam.h > obs.y) {
       // collision detected!
       score++;
-
       lasersLeft.splice(lasersLeft.indexOf(beam), 1)
       allObstacles.splice(allObstacles.indexOf(obs), 1)
       i++;
+    }
+    if (score == 69){
+      alert(`You won! Your corporate greed allowed you to take over! You killed ${score} CEOs`)
     }
   }
 }
@@ -143,8 +144,13 @@ class Obstacles {
 function drawObstacles() {
   for (let obs of allObstacles) {
     obs.x += obs.movement
-
     ctx.drawImage(muskImg, obs.x, obs.y, obs.w, obs.h)
+    detectCollision(obs)
+    detectCollisionBeam(obs)
+  }
+  for (obs of allObstacles) {
+    obs.x += obs.movement
+    ctx.drawImage(zuckImg, obs.x- 200, obs.y - 40, obs.w, obs.h)
     detectCollision(obs)
     detectCollisionBeam(obs)
   }
@@ -175,12 +181,12 @@ function detectCollision(obs) {
     if (lives == 0) {
       action = 'dying';
       clearInterval(bezosInterval)
-      animateBezos(300)
+      animateBezos(50)
       allObstacles = [];
       setTimeout(function () {
         cancelAnimationFrame(animationId)
         alert(`Game Over! You lost all of your wealth but vaporized ${score} rival CEOs.`)
-      }, 3000);
+      }, 2500);
 
     }
   }

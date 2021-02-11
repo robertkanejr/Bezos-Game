@@ -290,7 +290,6 @@ function animate() {
   for (laserl of lasersLeft) {
     laserl.drawLasersLeft()
   }
-
-
 }
+
 animate()

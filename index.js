@@ -66,7 +66,6 @@ class LasersL {
     this.w = w;
     this.h = h;
   }
-
   drawLasersLeft = () => {
     ctx.drawImage(this.img, this.x--, this.y - 50, this.w, this.h);
     this.x -= 10
@@ -255,6 +254,7 @@ function animateBezos(speed) {
     }
   }, speed)
 }
+
 animateBezos(50);
 function drawBezos() {
   ctx.drawImage(BezosImg, sheetX, sheetY, 902, 470, locateX, 340, 250, 175)

@@ -15,6 +15,7 @@ h1 {
     font-family: 'Orbitron', sans-serif;
 
 }
+
 h3 {
     color: white;
     background-color: black;
@@ -41,8 +42,8 @@ h3 {
 .instructions {
     display: flex;
     justify-content: flex-start;
-    /* margin: 10px 0 16px 16px; */
 }
+
 #gameboard{
     width: 100%;
     background-color: black;

@@ -114,7 +114,7 @@ function detectCollisionBeam(obs) {
       allObstacles.splice(allObstacles.indexOf(obs), 1)
       i++;
     }
-    if (score == 69){
+    if (score == 100) {
       alert(`You won! Your corporate greed allowed you to take over! You killed ${score} CEOs`)
     }
   }
@@ -150,7 +150,7 @@ function drawObstacles() {
   }
   for (obs of allObstacles) {
     obs.x += obs.movement
-    ctx.drawImage(zuckImg, obs.x- 200, obs.y - 40, obs.w, obs.h)
+    ctx.drawImage(zuckImg, obs.x - 200, obs.y - 40, obs.w, obs.h)
     detectCollision(obs)
     detectCollisionBeam(obs)
   }

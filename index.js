@@ -164,7 +164,7 @@ setInterval(function () {
     newObs = new Obstacles(-2000, 400, muskImg.width * .45, muskImg.height * .45, 5)
   }
   allObstacles.push(newObs)
-}, 10000)
+}, 1500)
 
 //Obstacle Collision Detection
 
@@ -185,7 +185,7 @@ function detectCollision(obs) {
       setTimeout(function () {
         cancelAnimationFrame(animationId)
         alert(`Game Over! You lost all of your wealth but vaporized ${score} rival CEOs.`)
-      }, 1200);
+      }, 1000);
 
     }
   }

@@ -121,14 +121,13 @@ function detectCollisionBeam(obs) {
 
 //Define Obstacles
 
+let allObstacles = []
+
 let muskImg = new Image()
 muskImg.src = "./images/musk.png"
 
-let allObstacles = []
-
 let zuckImg = new Image()
 zuckImg.src = "./images/zuck.png"
-
 
 class Obstacles {
   constructor(x, y, w, h, movement) {
